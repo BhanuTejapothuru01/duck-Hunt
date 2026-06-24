@@ -47,9 +47,9 @@ export const SENSITIVITY_MAP: Record<Sensitivity, number> = {
 
 /** Extra reach from hand center — multiplied with sensitivity in handToGame */
 export const SENSITIVITY_AIM_GAIN: Record<Sensitivity, number> = {
-  low: 1.25,
-  medium: 1.4,
-  high: 1.55,
+  low: 1.4,
+  medium: 1.58,
+  high: 1.75,
 }
 
 export const DIFFICULTY_MULTIPLIER: Record<Difficulty, number> = {

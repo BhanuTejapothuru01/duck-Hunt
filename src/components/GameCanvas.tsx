@@ -80,8 +80,8 @@ export function CalibrationScreen({ onReady, onBack, settings }: CalibrationScre
           style={{
             left: `${crosshair.x}%`,
             top: `${crosshair.y}%`,
-            width: 16,
-            height: 16,
+            width: 28,
+            height: 28,
             imageRendering: 'pixelated',
           }}
         >

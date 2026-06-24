@@ -155,7 +155,7 @@ export class GameEngine {
     for (const duck of this.ducks) {
       if (!duck.alive || duck.dying) continue
       const bounds = duck.getBounds()
-      if (circleInBounds(aim.x, aim.y, 48, bounds)) {
+      if (circleInBounds(aim.x, aim.y, 58, bounds)) {
         const killed = duck.hit()
         hit = true
         if (killed) {

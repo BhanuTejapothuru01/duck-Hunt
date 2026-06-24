@@ -64,7 +64,7 @@ export function stretchPixelCanvas(canvas: HTMLCanvasElement, container: HTMLEle
 }
 
 /** Boost so hand travel reaches screen edges */
-const AIM_GAIN = 1.35
+const AIM_GAIN = 1.5
 
 function expandAim(v: number, gain = AIM_GAIN): number {
   return Math.max(0, Math.min(1, (v - 0.5) * gain + 0.5))
@@ -185,19 +185,21 @@ export function drawPixelSun(ctx: CanvasRenderingContext2D, x: number, y: number
 
 export function drawPixelCrosshair(ctx: CanvasRenderingContext2D, x: number, y: number, frame: number): void {
   const s = PIXEL
+  const arm = s * 6
+  const thick = s * 3
   const cx = pxg(x)
   const cy = pxg(y)
   const pulse = frame % 2 === 0 ? 0 : s
 
   ctx.fillStyle = '#e40000'
-  fillPixelRect(ctx, cx - s * 4 - pulse, cy - s / 2, s * 2, s)
-  fillPixelRect(ctx, cx + s * 2 + pulse, cy - s / 2, s * 2, s)
-  fillPixelRect(ctx, cx - s / 2, cy - s * 4 - pulse, s, s * 2)
-  fillPixelRect(ctx, cx - s / 2, cy + s * 2 + pulse, s, s * 2)
+  fillPixelRect(ctx, cx - arm - pulse, cy - thick / 2, thick, thick)
+  fillPixelRect(ctx, cx + s + pulse, cy - thick / 2, thick, thick)
+  fillPixelRect(ctx, cx - thick / 2, cy - arm - pulse, thick, thick)
+  fillPixelRect(ctx, cx - thick / 2, cy + s + pulse, thick, thick)
   ctx.fillStyle = '#fff'
-  fillPixelRect(ctx, cx - s / 2, cy - s / 2, s, s)
+  fillPixelRect(ctx, cx - thick / 2, cy - thick / 2, thick, thick)
   ctx.fillStyle = '#e40000'
-  fillPixelRect(ctx, cx - s / 2, cy - s / 2, s / 2, s / 2)
+  fillPixelRect(ctx, cx - s / 2, cy - s / 2, s, s)
 }
 
 /** CRT scanline overlay drawn on top of game buffer */
