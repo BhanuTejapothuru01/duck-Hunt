@@ -185,19 +185,18 @@ export function drawPixelSun(ctx: CanvasRenderingContext2D, x: number, y: number
 
 export function drawPixelCrosshair(ctx: CanvasRenderingContext2D, x: number, y: number, frame: number): void {
   const s = PIXEL
-  const arm = s * 6
-  const thick = s * 3
   const cx = pxg(x)
   const cy = pxg(y)
   const pulse = frame % 2 === 0 ? 0 : s
 
+  // Classic plus reticle — same shape as before, scaled up ~1.5×
   ctx.fillStyle = '#e40000'
-  fillPixelRect(ctx, cx - arm - pulse, cy - thick / 2, thick, thick)
-  fillPixelRect(ctx, cx + s + pulse, cy - thick / 2, thick, thick)
-  fillPixelRect(ctx, cx - thick / 2, cy - arm - pulse, thick, thick)
-  fillPixelRect(ctx, cx - thick / 2, cy + s + pulse, thick, thick)
+  fillPixelRect(ctx, cx - s * 6 - pulse, cy - s, s * 3, s * 2)
+  fillPixelRect(ctx, cx + s * 3 + pulse, cy - s, s * 3, s * 2)
+  fillPixelRect(ctx, cx - s, cy - s * 6 - pulse, s * 2, s * 3)
+  fillPixelRect(ctx, cx - s, cy + s * 3 + pulse, s * 2, s * 3)
   ctx.fillStyle = '#fff'
-  fillPixelRect(ctx, cx - thick / 2, cy - thick / 2, thick, thick)
+  fillPixelRect(ctx, cx - s, cy - s, s * 2, s * 2)
   ctx.fillStyle = '#e40000'
   fillPixelRect(ctx, cx - s / 2, cy - s / 2, s, s)
 }
