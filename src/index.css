@@ -1,0 +1,250 @@
+@import "tailwindcss";
+
+@theme {
+  --font-pixel: "Press Start 2P", monospace;
+  --color-arcade-green: #3d8c40;
+  --color-arcade-sky: #6eb5ff;
+  --color-arcade-brown: #8b5a2b;
+  --color-arcade-gold: #ffd700;
+  --color-arcade-red: #e52521;
+  --color-arcade-dark: #1a1a2e;
+}
+
+@font-face {
+  font-family: "Press Start 2P";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("https://fonts.gstatic.com/s/pressstart2p/v16/e3t4euO8T-267oIAQAu6jDQyK0nSgPNN.woff2")
+    format("woff2");
+}
+
+* {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: #000;
+  font-family: var(--font-pixel);
+}
+
+.app-root {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+.game-screen {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+canvas {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+.pixel-canvas {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.pixel-border {
+  box-shadow:
+    0 0 0 4px #000,
+    0 0 0 8px #fff,
+    0 0 0 12px #000;
+}
+
+.scanlines::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.12) 2px,
+    rgba(0, 0, 0, 0.12) 4px
+  );
+  pointer-events: none;
+}
+
+/* ── Retro stepped animations (no smooth easing) ── */
+
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes pixel-float {
+  0%, 100% { transform: translateY(0); }
+  25% { transform: translateY(-4px); }
+  50% { transform: translateY(-8px); }
+  75% { transform: translateY(-4px); }
+}
+
+.animate-pixel-float {
+  animation: pixel-float 1.6s steps(4) infinite;
+}
+
+@keyframes title-glow {
+  0%, 100% { text-shadow: 4px 4px 0 #000; }
+  50% { text-shadow: 4px 4px 0 #000, 4px 4px 0 #fcd800; }
+}
+
+.animate-title-glow {
+  animation: title-glow 1.2s steps(2) infinite;
+}
+
+@keyframes pixel-blink {
+  0%, 49% { opacity: 1; color: #fcd800; }
+  50%, 100% { opacity: 0.6; color: #fc8000; }
+}
+
+.animate-pixel-blink {
+  animation: pixel-blink 0.8s step-end infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+
+.animate-shimmer {
+  animation: shimmer 1.2s steps(8) infinite;
+}
+
+@keyframes scan-line {
+  0% { top: 0; }
+  100% { top: 100%; }
+}
+
+.animate-scan-line {
+  animation: scan-line 2.5s steps(20) infinite;
+  position: absolute;
+  left: 0;
+}
+
+@keyframes crt-flicker {
+  0%, 94%, 100% { opacity: 0; }
+  95% { opacity: 0.08; }
+  96% { opacity: 0; }
+  97% { opacity: 0.05; }
+}
+
+.animate-crt-flicker {
+  background: rgba(255, 255, 255, 0.04);
+  animation: crt-flicker 3s step-end infinite;
+}
+
+@keyframes pixel-pop {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(0.5); opacity: 0.3; }
+}
+
+.animate-pixel-pop {
+  animation: pixel-pop 0.6s steps(2) infinite;
+}
+
+@keyframes slide-in-down {
+  0% { transform: translateY(-32px); opacity: 0; }
+  33% { transform: translateY(8px); opacity: 1; }
+  66% { transform: translateY(-4px); }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+.animate-slide-in-down {
+  animation: slide-in-down 0.5s steps(4) forwards;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-8px); }
+  50% { transform: translateX(8px); }
+  75% { transform: translateX(-4px); }
+}
+
+.animate-shake {
+  animation: shake 0.4s steps(4);
+}
+
+@keyframes combo-pulse {
+  0%, 100% { transform: scale(1); color: #fcd800; }
+  50% { transform: scale(1.1); color: #fc8000; }
+}
+
+.animate-combo-pulse {
+  animation: combo-pulse 0.5s steps(2) infinite;
+}
+
+@keyframes crosshair-ping {
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+}
+
+.animate-crosshair-ping {
+  animation: crosshair-ping 0.6s steps(4) infinite;
+}
+
+@keyframes fall-duck {
+  0% { transform: translateY(-16px); opacity: 1; }
+  25% { transform: translateY(25vh) rotate(90deg); }
+  50% { transform: translateY(50vh) rotate(180deg); }
+  75% { transform: translateY(75vh) rotate(270deg); }
+  100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+}
+
+.animate-fall-duck {
+  animation: fall-duck 2.5s steps(8) infinite;
+}
+
+@keyframes score-tick {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); color: #fcd800; }
+  100% { transform: scale(1); }
+}
+
+.animate-score-tick {
+  animation: score-tick 0.25s steps(3);
+}
+
+/* legacy aliases */
+.animate-float {
+  animation: pixel-float 1.6s steps(4) infinite;
+}
+
+.animate-score-glow {
+  animation: pixel-blink 1s step-end infinite;
+}
+
+.animate-button-glow {
+  animation: title-glow 1.2s steps(2) infinite;
+}
+
+.animate-heart-lost {
+  animation: pixel-pop 0.4s steps(2) forwards;
+}

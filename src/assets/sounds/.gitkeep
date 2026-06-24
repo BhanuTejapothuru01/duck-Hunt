@@ -1,0 +1,9 @@
+# Placeholder for sound assets
+# The game uses procedurally generated Web Audio API sounds.
+# To use custom sounds, add these files and update AudioManager.ts:
+# - pew.wav (shoot)
+# - hit.wav (hit)
+# - miss.wav (miss)
+# - combo.wav (combo)
+# - boss.wav (boss)
+# - gameover.wav (game over)
